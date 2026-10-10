@@ -1,6 +1,6 @@
 # Bekiuz Company — rasmiy sayt
 
-Professional, mobilga mos statik sayt. Bitta `index.html` faylida HTML, CSS va JavaScript jamlangan — build qilish, npm o‘rnatish yoki server kerak emas.
+Professional, mobilga mos statik sayt. Grafik dizayn, brending, banner, ijtimoiy tarmoq vizuallari, web va bot xizmatlarini taqdim etish uchun mo‘ljallangan. Bitta `index.html` faylida HTML, CSS va JavaScript jamlangan — build qilish, npm o‘rnatish yoki server kerak emas.
 
 ## Lokal ishga tushirish
 
@@ -18,6 +18,7 @@ Professional, mobilga mos statik sayt. Bitta `index.html` faylida HTML, CSS va J
 ## Saytda mavjud
 
 - Mobil va desktop ekranlariga moslashuvchi dizayn
+- Grafik dizayn, logo, brending, banner va UI/UX xizmatlari
 - Xizmatlar, demo loyihalar, ish jarayoni va kompaniya haqida bo‘limlar
 - Mobil navigatsiya, loyiha filtrlari va scroll progress indikatori
 - Kontakt so‘rovi matnini tayyorlash va nusxalash
