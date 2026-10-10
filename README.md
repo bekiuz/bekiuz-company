@@ -29,13 +29,14 @@ Professional, mobilga mos statik sayt. Bitta `index.html` faylida HTML, CSS va J
 
 ```js
 var CONFIG = {
-  telegramUsername: "",
+  telegramUsername: "bekiuz_009",
+  telegramChannelUsername: "bekiuz_dev",
   contactEmail: "",
   githubUrl: "https://github.com/bekiuz"
 };
 ```
 
-`telegramUsername` maydoniga Telegram username (masalan, `bekiuz_dev`), `contactEmail` maydoniga mijozlar murojaati uchun haqiqiy email kiriting. Keyin o‘zgarishlarni GitHub’ga commit qiling.
+`telegramUsername` — mijozlar yozadigan shaxsiy akkaunt (`bekiuz_009`), `telegramChannelUsername` — portfolio va yangiliklar kanali (`bekiuz_dev`). `contactEmail` maydoniga murojaatlar uchun haqiqiy email kiriting. Keyin o‘zgarishlarni GitHub’ga commit qiling. Saytda kanal havolasi alohida, shaxsiy Telegram esa bevosita aloqa uchun ko‘rsatiladi.
 
 **Muhim:** GitHub Pages statik hosting. Kontakt formasi backend yoki CRM’ga o‘zi ma’lumot saqlamaydi. Telegram/email sozlanmagan bo‘lsa, forma xabarni foydalanuvchi qurilmasida nusxalashga harakat qiladi; bu holatda xabarni foydalanuvchi o‘zi yuboradi. Maxfiy API kalitlarini `index.html` ichiga joylamang.
 
