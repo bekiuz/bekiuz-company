@@ -1,6 +1,6 @@
 # Bekiuz AI Agent
 
-This is the backend and admin foundation for the Bekiuz Company website.
+This is the deployed backend and admin foundation for the Bekiuz Company website.\n\nProduction Worker: `https://bekiuz-company-agent.bekiuz67.workers.dev`\nD1 database: `bekiuz-company-agent` (`3f9967d3-b69b-41af-9471-d77348edffab`).
 
 ## Architecture
 
