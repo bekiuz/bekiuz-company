@@ -103,23 +103,54 @@ function messageText(result) {
   if (typeof result?.choices?.[0]?.message?.content === "string") return result.choices[0].message.content;
   return "Kechirasiz, javobni tayyorlashda xatolik yuz berdi. Qayta urinib ko‘ring.";
 }
+function extractToolCalls(current) {
+  if (Array.isArray(current?.tool_calls)) return current.tool_calls;
+  const calls = current?.choices?.[0]?.message?.tool_calls;
+  if (!Array.isArray(calls)) return [];
+  return calls.map(call => ({
+    id: call.id,
+    name: call.function?.name || call.name,
+    arguments: call.function?.arguments ?? call.arguments
+  }));
+}
 async function callAI(env, messages, tools, executeTool) {
-  let current = await env.AI.run(MODEL, { messages, tools, tool_choice: "auto", max_tokens: 700, temperature: 0.35 });
+  const run = () => env.AI.run(MODEL, {
+    messages,
+    tools,
+    tool_choice: "auto",
+    max_tokens: 700,
+    temperature: 0.35,
+    chat_template_kwargs: { enable_thinking: false }
+  });
+  let current = await run();
   for (let turn = 0; turn < 2; turn++) {
-    const calls = Array.isArray(current?.tool_calls) ? current.tool_calls : [];
+    const calls = extractToolCalls(current).slice(0, 3);
     if (!calls.length) break;
-    const results = [];
-    for (const call of calls.slice(0, 3)) {
-      const name = validText(call.name, 60);
+    const assistantCalls = [];
+    const toolMessages = [];
+    for (let index = 0; index < calls.length; index++) {
+      const call = calls[index];
+      const name = validText(call.name || call.function?.name, 60);
       const args = parseToolArgs(call);
+      const callId = validText(call.id, 100) || "bekiuz_call_" + turn + "_" + index;
       let result;
       try { result = await executeTool(name, args); }
       catch (error) { result = { ok: false, message: error?.message || "Amal bajarilmadi." }; }
-      results.push({ name, result });
+      assistantCalls.push({
+        id: callId,
+        type: "function",
+        function: { name, arguments: JSON.stringify(args) }
+      });
+      toolMessages.push({
+        role: "tool",
+        tool_call_id: callId,
+        name,
+        content: JSON.stringify(result)
+      });
     }
-    messages.push({ role: "assistant", content: JSON.stringify(calls.slice(0, 3)) });
-    messages.push({ role: "tool", content: JSON.stringify(results) });
-    current = await env.AI.run(MODEL, { messages, tools, tool_choice: "auto", max_tokens: 700, temperature: 0.35 });
+    messages.push({ role: "assistant", content: null, tool_calls: assistantCalls });
+    messages.push(...toolMessages);
+    current = await run();
   }
   return messageText(current);
 }
