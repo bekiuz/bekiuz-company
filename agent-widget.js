@@ -73,10 +73,20 @@
   function save() {
     try { sessionStorage.setItem("bekiuz-ai-chat", JSON.stringify(history.slice(-12))); } catch {}
   }
+  function cleanAssistantText(value) {
+    return String(value || "")
+      .replace(/\\r\\n?/g, "\\n")
+      .replace(/\\\\([*_\x60~])/g, "$1")
+      .replace(/\\*\\*/g, "")
+      .replace(/\\x60/g, "")
+      .replace(/^\\s*\\*\\s+/gm, "• ")
+      .replace(/\\*/g, "")
+      .trim();
+  }
   function addMessage(role, content) {
     const node = document.createElement("div");
     node.className = "bc-msg " + (role === "user" ? "user" : "bot");
-    node.textContent = content;
+    node.textContent = role === "user" ? content : cleanAssistantText(content);
     list.appendChild(node);
     list.scrollTop = list.scrollHeight;
   }
