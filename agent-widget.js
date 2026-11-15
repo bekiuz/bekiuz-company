@@ -4,7 +4,7 @@
   if (document.getElementById("bekiuz-ai-root")) return;
 
   const style = document.createElement("style");
-  style.textContent = \`
+  style.textContent = `
     #bekiuz-ai-root{position:fixed;right:22px;bottom:22px;z-index:9999;font-family:Inter,system-ui,sans-serif;color:#f7f4fc}
     #bekiuz-ai-root *{box-sizing:border-box}
     .bc-launch{width:62px;height:62px;border:1px solid rgba(225,196,255,.5);border-radius:22px;background:linear-gradient(140deg,#d7b7ff,#ffabd9);color:#160d20;font-weight:900;font-size:25px;cursor:pointer;box-shadow:0 12px 40px #0008;display:grid;place-items:center}
@@ -30,12 +30,12 @@
     .bc-send:disabled{opacity:.5;cursor:wait}
     .bc-note{padding:0 14px 10px;color:#756a80;font-size:9px}
     @media(max-width:480px){#bekiuz-ai-root{right:14px;bottom:14px}.bc-launch{width:56px;height:56px;border-radius:19px}.bc-panel{right:-5px;bottom:68px;height:min(610px,calc(100dvh - 95px))}}
-  \`;
+  `;
   document.head.appendChild(style);
 
   const root = document.createElement("div");
   root.id = "bekiuz-ai-root";
-  root.innerHTML = \`
+  root.innerHTML = `
     <section class="bc-panel" id="bc-panel" aria-label="Bekiuz AI chat" aria-hidden="true">
       <header class="bc-head">
         <div class="bc-avatar">B.</div>
@@ -56,7 +56,7 @@
       <div class="bc-note">Ma’lumotlar faqat murojaatingizni ko‘rib chiqish uchun ishlatiladi.</div>
     </section>
     <button class="bc-launch" type="button" aria-label="Bekiuz AI yordamchini ochish">B.</button>
-  \`;
+  `;
   document.body.appendChild(root);
 
   const panel = root.querySelector("#bc-panel");
