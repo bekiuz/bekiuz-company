@@ -125,9 +125,10 @@ function extractToolCalls(current) {
   }));
 }
 async function callAI(env, messages, tools, executeTool) {
+  const aiTools = tools.map(tool => tool.type === "function" ? tool : ({ type: "function", function: tool }));
   const run = () => env.AI.run(MODEL, {
     messages,
-    tools,
+    tools: aiTools,
     tool_choice: "auto",
     max_tokens: 700,
     temperature: 0.35,
