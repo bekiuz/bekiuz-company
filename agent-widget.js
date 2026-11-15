@@ -75,12 +75,12 @@
   }
   function cleanAssistantText(value) {
     return String(value || "")
-      .replace(/\\r\\n?/g, "\\n")
-      .replace(/\\\\([*_\x60~])/g, "$1")
-      .replace(/\\*\\*/g, "")
-      .replace(/\\x60/g, "")
-      .replace(/^\\s*\\*\\s+/gm, "• ")
-      .replace(/\\*/g, "")
+      .replace(/\r\n?/g, "\n")
+      .replace(/\\([*_~])/g, "$1")
+      .replace(/\*\*/g, "")
+      .replace(/[\x60]/g, "")
+      .replace(/^\s*\*\s+/gm, "• ")
+      .replace(/\*/g, "")
       .trim();
   }
   function addMessage(role, content) {
