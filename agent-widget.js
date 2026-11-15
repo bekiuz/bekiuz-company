@@ -7,11 +7,11 @@
   style.textContent = `
     #bekiuz-ai-root{position:fixed;right:22px;bottom:22px;z-index:9999;font-family:Inter,system-ui,sans-serif;color:#f7f4fc}
     #bekiuz-ai-root *{box-sizing:border-box}
-    .bc-launch{width:62px;height:62px;border:1px solid rgba(225,196,255,.5);border-radius:22px;background:linear-gradient(140deg,#d7b7ff,#ffabd9);color:#160d20;font-weight:900;font-size:25px;cursor:pointer;box-shadow:0 12px 40px #0008;display:grid;place-items:center}
+    .bc-launch{width:62px;height:62px;border:1px solid rgba(205,166,255,.62);border-radius:22px;background:radial-gradient(circle at 30% 18%,#302342,#17111f 68%);color:#dfc3ff;cursor:pointer;box-shadow:0 12px 40px #0008,0 0 26px rgba(169,112,230,.2);display:grid;place-items:center;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.bc-launch:hover{transform:translateY(-3px);border-color:#e4caff;box-shadow:0 15px 44px #0009,0 0 34px rgba(190,132,255,.32)}.bc-ai-symbol{width:34px;height:34px;display:block;filter:drop-shadow(0 0 8px rgba(208,166,255,.35))}
     .bc-panel{position:absolute;right:0;bottom:76px;width:min(390px,calc(100vw - 28px));height:min(590px,calc(100dvh - 120px));display:none;flex-direction:column;overflow:hidden;border:1px solid #443452;border-radius:21px;background:#100d16;box-shadow:0 24px 90px #000a}
     .bc-panel.open{display:flex}
     .bc-head{padding:16px 17px;background:linear-gradient(110deg,#21172e,#17111f);border-bottom:1px solid #33263f;display:flex;align-items:center;gap:11px}
-    .bc-avatar{width:39px;height:39px;border-radius:13px;background:linear-gradient(130deg,#d7b7ff,#ffabd9);color:#180e21;font-weight:900;display:grid;place-items:center}
+    .bc-avatar{width:39px;height:39px;border:1px solid #59416e;border-radius:13px;background:linear-gradient(145deg,#302342,#191321);color:#dfc3ff;display:grid;place-items:center}.bc-avatar .bc-ai-symbol{width:25px;height:25px}
     .bc-head strong{display:block;font-size:13px;letter-spacing:.04em}
     .bc-head small{display:block;color:#b9a8ca;font-size:10px;margin-top:2px}
     .bc-close{margin-left:auto;border:0;background:transparent;color:#cbbbd8;font-size:22px;cursor:pointer}
@@ -38,7 +38,7 @@
   root.innerHTML = `
     <section class="bc-panel" id="bc-panel" aria-label="Bekiuz AI chat" aria-hidden="true">
       <header class="bc-head">
-        <div class="bc-avatar">B.</div>
+        <div class="bc-avatar"><svg class="bc-ai-symbol" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 4.5L28.2 19.8L43.5 24L28.2 28.2L24 43.5L19.8 28.2L4.5 24L19.8 19.8L24 4.5Z" fill="currentColor"/><path d="M36.5 5.5V13M32.75 9.25H40.25" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="36.5" r="2.2" fill="currentColor"/><circle cx="38" cy="36.5" r="1.5" fill="currentColor" opacity=".75"/></svg></div>
         <div><strong>BEKIUZ AI</strong><small>Virtual yordamchi · Odatda tez javob beradi</small></div>
         <button class="bc-close" type="button" aria-label="Yopish">×</button>
       </header>
@@ -55,7 +55,7 @@
       </form>
       <div class="bc-note">Ma’lumotlar faqat murojaatingizni ko‘rib chiqish uchun ishlatiladi.</div>
     </section>
-    <button class="bc-launch" type="button" aria-label="Bekiuz AI yordamchini ochish">B.</button>
+    <button class="bc-launch" type="button" aria-label="Bekiuz AI yordamchini ochish"><svg class="bc-ai-symbol" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 4.5L28.2 19.8L43.5 24L28.2 28.2L24 43.5L19.8 28.2L4.5 24L19.8 19.8L24 4.5Z" fill="currentColor"/><path d="M36.5 5.5V13M32.75 9.25H40.25" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="36.5" r="2.2" fill="currentColor"/><circle cx="38" cy="36.5" r="1.5" fill="currentColor" opacity=".75"/></svg></button>
   `;
   document.body.appendChild(root);
 
