@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  const API_URL = "https://REPLACE-WITH-WORKER.workers.dev";
+  const API_URL = "https://bekiuz-company-agent.bekiuz67.workers.dev";
   if (document.getElementById("bekiuz-ai-root")) return;
 
   const style = document.createElement("style");
