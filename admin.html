@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09080d">
+<title>BEKIUZ AI — Admin Console</title>
+<style>
+:root{color-scheme:dark;--bg:#09080d;--panel:#14111b;--line:#30263a;--text:#f7f4fc;--muted:#a69ab3;--purple:#c49aff;--pink:#ff9aca}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#38234a55,transparent 38%),var(--bg);color:var(--text);font:14px/1.55 Inter,system-ui,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1180px,calc(100% - 36px));margin:0 auto}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;letter-spacing:.13em}.brand span{color:var(--pink)}.sub{font-size:10px;color:var(--muted);letter-spacing:.12em}.pill{border:1px solid var(--line);background:#17121e;color:#dac8ea;border-radius:999px;padding:9px 13px}.hidden{display:none!important}h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.05em;margin:28px 0 5px}.muted{color:var(--muted)}.login{width:min(420px,100%);margin:11vh auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:25px}.login h1{font-size:27px;margin:0 0 6px}.field{display:grid;gap:7px;margin-top:18px}.field label{font-size:11px;color:#c9b9d8}.field input,.chat-input{background:#0e0b13;border:1px solid #403248;border-radius:11px;padding:13px;color:white;outline:none}.field input:focus,.chat-input:focus{border-color:var(--purple)}.primary{border:0;border-radius:11px;padding:12px 17px;background:linear-gradient(110deg,#d7b7ff,#ffabd9);color:#180e21;font-weight:850}.login .primary{width:100%;margin-top:18px}.error{color:#ff9eae;font-size:12px;min-height:18px;margin:8px 0 0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:24px 0}.card{background:linear-gradient(145deg,#191421,#100d16);border:1px solid var(--line);border-radius:16px;padding:17px}.card small{color:var(--muted);letter-spacing:.11em;font-size:9px}.card b{display:block;font-size:30px;margin-top:6px}.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:15px;margin:15px 0}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px;min-width:0}.panel h2{font-size:17px;margin:0 0 13px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:580px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #2a2232;font-size:11px;vertical-align:top}th{color:#bda9d2;font-size:9px;letter-spacing:.1em}td{color:#e8e0ef}.small{font-size:10px;color:var(--muted)}select{background:#100d16;color:#eee;border:1px solid #45374f;border-radius:8px;padding:6px;font-size:10px}.task{padding:11px 0;border-bottom:1px solid #2a2232}.task strong{display:block;font-size:12px}.task p{font-size:11px;color:var(--muted);margin:4px 0}.task button{margin-top:5px}.chatbox{display:flex;flex-direction:column;height:430px}.chatlog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:5px 0 12px}.bubble{max-width:94%;padding:10px 12px;border-radius:11px;background:#21182b;font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.user{align-self:flex-end;background:#523869}.chatrow{display:flex;gap:8px}.chat-input{flex:1;min-width:0}.status{font-size:11px;color:var(--muted);min-height:17px;margin-top:7px}.hint{font-size:10px;color:#867b91;margin-top:12px}.tools{display:flex;gap:9px;align-items:center}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.chatbox{height:360px}}@media(max-width:420px){.grid{gap:8px}.card{padding:12px}.card b{font-size:24px}.wrap{width:calc(100% - 24px)}}
+</style>
+</head>
+<body>
+<header class="top wrap"><div><div class="brand">BEKIUZ<span>.</span> COMPANY</div><div class="sub">AI OPERATIONS CONSOLE</div></div><div class="tools"><span id="connection" class="sub">OFFLINE</span><button id="logout" class="pill hidden" type="button">Chiqish</button></div></header>
+
+<section id="loginView" class="login">
+  <h1>Admin Console</h1><p class="muted">Bekiuz Company ichki boshqaruv paneli.</p>
+  <form id="loginForm"><div class="field"><label for="password">Admin paroli</label><input id="password" type="password" required autocomplete="current-password" maxlength="200"></div><button class="primary" type="submit">Kirish ↗</button></form>
+  <p id="loginError" class="error" aria-live="polite"></p>
+  <p class="hint">Kirish ma’lumotlari faqat Cloudflare Worker secrets’da saqlanadi.</p>
+</section>
+
+<main id="dashboard" class="wrap hidden">
+  <h1>Salom, Bekiuz.</h1><p class="muted">Kompaniya murojaatlari, vazifalar va AI Operations Agent.</p>
+  <section class="grid">
+    <div class="card"><small>JAMI LEADLAR</small><b id="totalLeads">—</b></div>
+    <div class="card"><small>YANGI MUROJAATLAR</small><b id="newLeads">—</b></div>
+    <div class="card"><small>OCHIQ VAZIFALAR</small><b id="openTasks">—</b></div>
+    <div class="card"><small>TAKLIF DRAFTLARI</small><b id="quotes">—</b></div>
+  </section>
+  <div class="layout">
+    <section class="panel"><h2>Mijoz murojaatlari</h2><div class="scroll"><table><thead><tr><th>MIJOZ</th><th>XIZMAT / BRIEF</th><th>ALOQA</th><th>HOLAT</th></tr></thead><tbody id="leadsBody"><tr><td colspan="4" class="small">Yuklanmoqda...</td></tr></tbody></table></div></section>
+    <section class="panel"><h2>Vazifalar</h2><div id="tasksBody"><p class="small">Yuklanmoqda...</p></div></section>
+  </div>
+  <section class="panel chatbox">
+    <h2>BEKIUZ AI — Operations Agent</h2>
+    <div class="chatlog" id="chatLog"><div class="bubble">Men ichki AI yordamchiman. Masalan: “Yangi leadlarni ko‘rsat”, “Bugungi ishlar uchun 3 ta vazifa yarat” yoki “CRM bo‘yicha qisqa hisobot ber”.</div></div>
+    <form id="chatForm" class="chatrow"><input id="chatInput" class="chat-input" maxlength="1600" placeholder="Ichki vazifa yoki savol..." autocomplete="off"><button class="primary" type="submit">Yuborish</button></form>
+    <p id="chatStatus" class="status" aria-live="polite"></p>
+  </section>
+  <p class="hint">AI takliflarni faqat draft sifatida saqlaydi. Mijozga yuborish, to‘lov yoki ommaviy e’lonlar alohida tasdiq talab qiladi.</p>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const API_URL="https://bekiuz-company-agent.bekiuz67.workers.dev";
+  const tokenKey="bekiuz-admin-token";
+  const $=id=>document.getElementById(id);
+  let token=sessionStorage.getItem(tokenKey)||"";
+  let adminHistory=[];
+  function setView(authed){
+    $("loginView").classList.toggle("hidden",authed);
+    $("dashboard").classList.toggle("hidden",!authed);
+    $("logout").classList.toggle("hidden",!authed);
+    $("connection").textContent=authed?"CONNECTED":"OFFLINE";
+  }
+  async function api(path,options={}){
+    const headers={"Content-Type":"application/json",...(options.headers||{})};
+    if(token)headers.Authorization="Bearer "+token;
+    const res=await fetch(API_URL+path,{...options,headers});
+    const data=await res.json().catch(()=>({error:"Server javobi noto‘g‘ri."}));
+    if(res.status===401){logout();throw new Error(data.error||"Sessiya tugadi.");}
+    if(!res.ok)throw new Error(data.error||"Server xatoligi.");
+    return data;
+  }
+  function safeCell(value){const el=document.createElement("span");el.textContent=value??"";return el;}
+  async function loadAll(){
+    const [summary,leads,tasks]=await Promise.all([api("/api/admin/summary"),api("/api/admin/leads"),api("/api/admin/tasks")]);
+    $("totalLeads").textContent=summary.total_leads??0;
+    $("newLeads").textContent=summary.new_leads??0;
+    $("openTasks").textContent=summary.open_tasks??0;
+    $("quotes").textContent=summary.quotes??0;
+    const body=$("leadsBody");body.replaceChildren();
+    (leads.leads||[]).forEach(lead=>{
+      const tr=document.createElement("tr");
+      const info=document.createElement("td");info.append(safeCell(lead.name));const contact=document.createElement("td");contact.textContent=lead.contact||"";
+      const service=document.createElement("td");service.textContent=(lead.service||"")+" — "+(lead.brief||"").slice(0,100);
+      const statusCell=document.createElement("td"),select=document.createElement("select");
+      ["new","contacted","in_progress","closed"].forEach(status=>{const opt=document.createElement("option");opt.value=status;opt.textContent=status;opt.selected=lead.status===status;select.append(opt);});
+      select.addEventListener("change",async()=>{try{await api("/api/admin/leads/"+encodeURIComponent(lead.id),{method:"PATCH",body:JSON.stringify({status:select.value})});}catch(e){alert(e.message);}});
+      statusCell.append(select);tr.append(info,service,contact,statusCell);body.append(tr);
+    });
+    if(!(leads.leads||[]).length){const tr=document.createElement("tr"),td=document.createElement("td");td.colSpan=4;td.textContent="Hozircha murojaat yo‘q.";tr.append(td);body.append(tr);}
+    const taskBox=$("tasksBody");taskBox.replaceChildren();
+    (tasks.tasks||[]).forEach(task=>{
+      const item=document.createElement("div");item.className="task";
+      const title=document.createElement("strong");title.textContent=task.title;
+      const detail=document.createElement("p");detail.textContent=task.details+(task.due_date?" · Muddat: "+task.due_date:"");
+      item.append(title,detail);
+      if(task.status==="open"){const btn=document.createElement("button");btn.className="pill";btn.type="button";btn.textContent="Bajarildi";btn.addEventListener("click",async()=>{try{await api("/api/admin/tasks/"+encodeURIComponent(task.id),{method:"PATCH",body:JSON.stringify({status:"done"})});await loadAll();}catch(e){alert(e.message);}});item.append(btn);}
+      else{const done=document.createElement("span");done.className="small";done.textContent="Bajarildi";item.append(done);}
+      taskBox.append(item);
+    });
+    if(!(tasks.tasks||[]).length){const p=document.createElement("p");p.className="small";p.textContent="Hozircha vazifa yo‘q.";taskBox.append(p);}
+  }
+  function logout(){token="";sessionStorage.removeItem(tokenKey);setView(false);}
+  $("loginForm").addEventListener("submit",async e=>{
+    e.preventDefault();$("loginError").textContent="";
+    if(API_URL.includes("REPLACE-WITH-WORKER")){$("loginError").textContent="Avval Cloudflare Worker URL manzilini sozlang.";return;}
+    try{const data=await fetch(API_URL+"/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})}).then(r=>r.json().then(d=>({ok:r.ok,data:d})));
+      if(!data.ok)throw new Error(data.data.error||"Kirish amalga oshmadi.");
+      token=data.data.token;sessionStorage.setItem(tokenKey,token);setView(true);await loadAll();
+    }catch(err){$("loginError").textContent=err.message;}
+  });
+  $("logout").addEventListener("click",logout);
+  $("chatForm").addEventListener("submit",async e=>{
+    e.preventDefault();const value=$("chatInput").value.trim();if(!value)return;
+    $("chatInput").value="";const user=document.createElement("div");user.className="bubble user";user.textContent=value;$("chatLog").append(user);
+    adminHistory.push({role:"user",content:value});$("chatStatus").textContent="AI ishlayapti...";
+    try{const result=await api("/api/admin/chat",{method:"POST",body:JSON.stringify({messages:adminHistory.slice(-10)})});
+      const bubble=document.createElement("div");bubble.className="bubble";bubble.textContent=result.reply||"Javob yo‘q.";$("chatLog").append(bubble);
+      adminHistory.push({role:"assistant",content:result.reply||""});$("chatStatus").textContent="";await loadAll();
+    }catch(err){$("chatStatus").textContent=err.message;}
+    $("chatLog").scrollTop=$("chatLog").scrollHeight;
+  });
+  if(API_URL.includes("REPLACE-WITH-WORKER")){$("loginError").textContent="Deploydan keyin agent/README.md dagi ko‘rsatma bo‘yicha API_URL ni almashtiring.";setView(false);}
+  else if(token){setView(true);loadAll().catch(()=>logout());}
+  else setView(false);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+name = "bekiuz-company-agent"
+main = "worker.js"
+compatibility_date = "2026-11-15"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bekiuz-company-agent"
+database_id = "3f9967d3-b69b-41af-9471-d77348edffab"
+migrations_dir = "migrations"
